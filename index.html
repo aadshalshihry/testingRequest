@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Request Testing</title>
+</head>
+<body>
+  <div id="app">{{ message }} </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+
+  <script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+          message: 'Hello Vue!'
+        },
+        mounted() {
+          fetch('http://18.220.10.106:8091/tweetcounts/getTweetDailyEngagment', {
+            method: "POST", // *GET, POST, PUT, DELETE, etc.
+            mode: "cors", // no-cors, cors, *same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "include", // include, *same-origin, omit,
+            "Access-Control-Allow-Origin": "*",
+            header: {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            body: {
+            "requestId": 2,
+            "limit": 10,
+            "clientName":"mojaz_ed1",
+            "filters": [
+              {
+                "filterField": "tweet_body",
+                "filterValue": "KSA",
+                "operator": "like"
+              }
+          ],  "startDate": "2018-09-01",
+              "endDate": "2018-09-02"
+          }
+          }).then(res => {
+            console.log(res);
+          })
+        },
+      });
+  </script>
+</body>
+</html>
